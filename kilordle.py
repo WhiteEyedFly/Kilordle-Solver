@@ -1,3 +1,4 @@
+"""
 dict = open("kilordle.txt")
 
 WORDLES = [
@@ -13081,6 +13082,6 @@ def best_word(words):
 #make_list(WORDS, WORDLES)
 make_list_new(WORDS, WORDLES)
 
-"""
+
 Find the highest rated word, update the ratings accordingly, iterate
 """
