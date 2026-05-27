@@ -1,0 +1,115 @@
+import os
+import copy
+import numpy as np
+import random as rand
+
+from words import WORDS, WORDLES
+from kilordleInitialSolver import isValidCover, findLetterPositions, reduce
+
+# isValidCover        = cover,   letterPositions
+# findLetterPositions = answers, wordLength
+#
+
+"""
+Main idea:
+
+Solving based on the words is too slow, so solve based on the letterPositions instead
+Loop over the letter positions, selecting a random word that covers it
+Do so 10000 times, choose the smallest solution
+"""
+
+def unpacker(letterPositions, answers, wordList):
+    # Outputs a list of all words that cover the letterposition that occurs least
+    copyPositions = copy.deepcopy(letterPositions)
+    
+    minOccurrences = 10000
+    minLetterPositions = []
+    
+    # Create a list of the letter-positions that appear least in letterPositions
+    for letter in copyPositions:
+        for position in range(len(copyPositions[letter])):
+            if copyPositions[letter][position] < minOccurrences:
+                if copyPositions[letter][position] > 0:
+                    minOccurrences = copyPositions[letter][position]
+                    minLetterPositions = [[letter, position]]
+            elif copyPositions[letter][position] == minOccurrences:
+                minLetterPositions = minLetterPositions + [[letter, position]]
+            else:
+                pass
+    
+    if minOccurrences == 10000:
+        return []
+    
+    acceptableChoices = []
+    
+    for minimum in range(len(minLetterPositions)):
+        words = wordFinder(minLetterPositions[minimum], wordList)
+        
+        for word in words:
+            if word not in acceptableChoices:
+                acceptableChoices.append(word)
+        
+    return acceptableChoices
+    
+def wordFinder(letterPosition, wordList):
+    # Outputs a list of all words that cover the letter position
+    letter = letterPosition[0]
+    position = letterPosition[1]
+    
+    acceptableWords = []
+    
+    for word in wordList:
+        if word[position] == letter:
+            acceptableWords.append(word)
+    
+    return acceptableWords
+
+def reducer(acceptableWords, answers, wordList, letterPositions, solution, solutions, setsChecked):
+    # Outputs all minimum solutions given a set of starting words
+    # Works recursively using currCover
+    
+    # We know already that a 34 solution is possible
+    if len(solution) > 34:
+        return solutions
+    
+    for word in acceptableWords:
+        solver = solution + [word]
+        solver.sort()
+        
+        if solver not in setsChecked[len(solver)]:
+            setsChecked[len(solver)] = setsChecked[len(solver)] + [solver]
+            
+            copyPositions = copy.deepcopy(letterPositions)
+            
+            for position in range(len(word)):
+                copyPositions[word[position]][position] = 0
+            
+            nextWords = unpacker(copyPositions, answers, wordList)
+            
+            if nextWords == []:
+                if len(solver) == 30:
+                    print(solver)
+                
+                solutions = solutions + [solver]
+            else:
+                solutions = reducer(nextWords, answers, wordList, copyPositions, solver, solutions, setsChecked)
+    
+    #if len(solutions) // 100 == len(solutions) / 100:
+    #    print(str(len(solutions)) + " solutions have been found")
+    #    print(setsChecked[4])
+    return solutions
+            
+
+def main():
+    sets = [[] for i in range(100)]
+    #letterPositions = findLetterPositions(["able", "cain", "veil"], 4)[0]
+    #starterWords = unpacker(letterPositions, ["able", "cain", "veil", "cant"], ["able", "cain", "veil"])
+    #solutions = reducer(starterWords, ["able", "cain", "veil", "cant"], ["able", "cain", "veil"], letterPositions, [], [], sets)
+    
+    letterPositions = findLetterPositions(WORDLES, 5)[0]
+    starterWords = unpacker(letterPositions, WORDS, WORDLES)
+    solutions = reducer(starterWords, WORDS, WORDLES, letterPositions, [], [], sets)
+    
+    print(solutions)
+
+main()

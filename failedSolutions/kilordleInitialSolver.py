@@ -12,6 +12,7 @@ Backtrack for all such minimal covers
 Choose an optimal one
 """
 
+
 coversFound = 0
 
 def findLetterPositions(answers, wordLength):
@@ -50,8 +51,8 @@ def isValidCover(cover, letterPositions):
                 if sum == numLetterPositions:
                     coversFound += 1
                     
-                    if coversFound // 1000 == coversFound / 1000:
-                        print(str(coversFound) + " covers have been found")
+                    #if coversFound // 1000 == coversFound / 1000:
+                        #print(str(coversFound) + " covers have been found")
                     
                     return True
     return False
@@ -115,4 +116,6 @@ def main():
     possibleMinimumCovers = reduce(WORDS, [], [], [], letterPositions)
     print(possibleMinimumCovers)
  
+"""
 main()
+"""
