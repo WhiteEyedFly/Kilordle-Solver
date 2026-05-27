@@ -9,7 +9,7 @@ from kilordleInitialSolver import isValidCover, findLetterPositions, reduce
 """
 Main idea:
 
-Speed up kilordleInitialSolver by shrinking the data set
+Speed up kilordleInitialSolver by randomly shrinking the data set
 """
 
 def findSmallSolutions(repeat, number, wordList, letterPositions):
