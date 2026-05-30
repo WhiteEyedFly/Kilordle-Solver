@@ -31,6 +31,8 @@ def findLetterPositions(answers, wordLength):
             
     return [letterPositions, numLetterPositions]
 
+
+# Note: you only need to check it covers the removed word in this code, this could be ~26x more efficient
 def isValidCover(cover, letterPositions):
     global coversFound
     
@@ -106,16 +108,19 @@ def reduce(cover, coversChecked, coversToCheck, minimumCovers, letterPositions):
 
 
 def main():
-    # Test
-    letterPositions  = findLetterPositions(["able", "cain", "cale", "vein"], 4) 
-    possibleMinimumCovers = reduce(["able", "cain", "cale", "veil"], [], [], [], letterPositions)
+    # Test 1
+    #letterPositions  = findLetterPositions(["able", "cain", "cale", "vein"], 4) 
+    #possibleMinimumCovers = reduce(["able", "cain", "cale", "veil"], [], [], [], letterPositions)
+    #print(possibleMinimumCovers)
+    
+    # Test 2
+    letterPositions  = findLetterPositions(["empty", "eaten", "pasty", "weigh", "slows", "smpty"], 5) 
+    possibleMinimumCovers = reduce(["empty", "eaten", "pasty", "weigh", "slows", "smpty"], [], [], [], letterPositions)
     print(possibleMinimumCovers)
     
     # Kilordle inputs
-    letterPositions  = findLetterPositions(WORDLES, 5) 
-    possibleMinimumCovers = reduce(WORDS, [], [], [], letterPositions)
-    print(possibleMinimumCovers)
+    #letterPositions  = findLetterPositions(WORDLES, 5) 
+    #possibleMinimumCovers = reduce(WORDS, [], [], [], letterPositions)
+    #print(possibleMinimumCovers)
  
-"""
-main()
-"""
+#main()

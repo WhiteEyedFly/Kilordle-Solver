@@ -4,7 +4,7 @@ import numpy as np
 import random as rand
 
 from words import WORDS, WORDLES
-from kilordleInitialSolver import isValidCover, findLetterPositions, reduce
+from tooSlow.kilordleInitialSolver import isValidCover, findLetterPositions, reduce
 
 # isValidCover        = cover,   letterPositions
 # findLetterPositions = answers, wordLength

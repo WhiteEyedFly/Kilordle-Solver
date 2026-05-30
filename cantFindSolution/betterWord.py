@@ -1,6 +1,6 @@
 import copy
 from words import WORDS, WORDLES
-from kilordleInitialSolver import findLetterPositions, isValidCover
+from tooSlow.kilordleInitialSolver import findLetterPositions, isValidCover
 
 def has_n_new_letters(word, limit, solution):
     # Find a base list
