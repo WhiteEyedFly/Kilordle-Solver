@@ -122,6 +122,8 @@ def reducer(acceptableWords, answers, wordList, letterPositions, solution, solut
 
 def main():
     sets = [[] for i in range(100)]
+    
+    # Test
     #letterPositions = findLetterPositions(["able", "cain", "veil"], 4)[0]
     #starterWords = unpacker(letterPositions, ["able", "cain", "veil", "cant"], ["able", "cain", "veil"])
     #solutions = reducer(starterWords, ["able", "cain", "veil", "cant"], ["able", "cain", "veil"], letterPositions, [], [], sets)
